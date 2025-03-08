@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CiberBoy's website</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: url('Sky.png');
+            background-size: cover;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(5, 5, 1);
+            text-align: center;
+        }
+        h1 {
+            font-size: 60px; 
+            margin-bottom: 80px;
+            color:red;
+        }
+        h2 {
+            font-size: 24px; 
+            margin:2px;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; 
+        }
+        button {
+            background-color: green;
+            color: white;
+            font-size: 28px; 
+            padding: 15px 30px; 
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px; 
+        }
+        button img {
+            width: 32px; 
+            height: 32px;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body> 
+    <h1>CiberBoy's webpage</h1>
+    <h2>Hi! I'm CiberBoy, a Spanish YouTuber and coder.</h2>
+    <h2>I usually code in C#, C++, JS, HTML and CSS.</h2>
+    <h2>I enjoy testing and coding malware.</h2>
+    <h2>I also make high quality YT videos of windows experiments and malware.</h2>
+    <h2>I leave you here some links to my socials and info about me :)</h2>
+    <div class="button-container">
+        <button onclick="location.href='about.html'">
+            <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" alt="Help Icon">
+            About Me
+        </button>
+        <button onclick="location.href='https://github.com/CiberBoyYT'">
+            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub Icon">
+            GitHub
+        </button>
+        <button onclick="location.href='https://youtube.com/@ciberboyyt'">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube Icon">
+            YouTube
+        </button>
+        <button onclick="location.href='https://discord.gg/ubTEfwHaU4'">
+            <img src="dc.png" alt="Discord Icon">
+            My Discord Server
+        </button>
+    </div>
+</body>
+</html>
