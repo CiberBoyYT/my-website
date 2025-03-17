@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CiberBoy web</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: url('https://img.freepik.com/vector-gratis/fondo-degradado-oscuro-espacio-copia_53876-99548.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+        h1 {
+            font-size: 60px; 
+            margin-bottom: 30px;
+            color:red;
+        }
+        h2 {
+            font-size: 24px; 
+            margin:2px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #066613;
+            color: white;
+            font-size: 40px;
+            padding: 10px 20px;
+            border: none;
+            border-style:groove;
+            border-color: #e64a19;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.5s;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #e64a19;
+        }
+    </style>
+</head>
+<body>
+    <h1>CiberBoy games</h1>
+    <h2>Some games I coded for fun because I was bored.</h2>
+    <h2>This games are open source and are made mostly in JavaScript.</h2>
+    <h2>The game mechanics and functioning are coded all in JavaScript, meanwhile</h2>
+    <h2>the basic design of the webpage is made in HTML and CSS.</h2>
+    <h2>I'll be adding more games as soon as I have time, so stay tuned!</h2>
+    <h1>Happy gaming!</h1>
+    <button onclick="dino()">Play dino</button>
+    <button onclick="platformer()">Play platformer</button>
+    <script>
+        function dino() {
+            window.open('dino.html', '_blank');
+        }
+        function platformer() {
+            window.open('platformer.html', '_blank')
+        }
+    </script>
+</body>
+</html>
