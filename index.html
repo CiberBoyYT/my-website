@@ -3,90 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CiberBoy's website</title>
+    <title>CiberBoy's Website</title>
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background: url('bg.png');
-            background-size: cover;
-            font-family: Arial, Helvetica, sans-serif;
-            color: rgb(5, 5, 1);
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
             text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            animation: fadeIn 1.5s ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
         h1 {
-            font-size: 60px; 
-            margin-bottom: 40px;
-            color:red;
+            font-size: 55px;
+            color: #ff4757;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.8);
         }
         h2 {
-            font-size: 24px; 
-            margin:2px;
-            margin-bottom: 20px;
+            font-size: 20px;
+            margin-bottom: 10px;
         }
         .button-container {
             display: flex;
-            flex-direction: column;
-            gap: 20px; 
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
         }
-        button {
-            background-color: green;
-            color: white;
-            font-size: 28px; 
-            padding: 15px 30px; 
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
+        .btn {
             display: flex;
             align-items: center;
-            gap: 15px; 
+            gap: 12px;
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            font-size: 20px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.5);
+            text-transform: uppercase;
         }
-        button img {
-            width: 32px; 
-            height: 32px;
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.7);
         }
-        button:hover {
-            background-color: darkgreen;
+        .btn img {
+            width: 28px;
+            height: 28px;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
     </style>
 </head>
-<body> 
-    <h1>CiberBoy's webpage</h1>
-    <h2>Hi! I'm CiberBoy, a Spanish YouTuber and coder.</h2>
-    <h2>I usually code in C#, C++, JS, HTML and CSS.</h2>
-    <h2>I enjoy testing and coding malware.</h2>
-    <h2>I also make high quality YT videos of windows experiments and malware.</h2>
-    <h2>I leave you here some links to my socials and info about me :)</h2>
-    <div class="button-container">
-        <button onclick="location.href='about.html'">
-            <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" alt="Help Icon">
-            About Me
-        </button>
-        <button onclick="location.href='https://github.com/CiberBoyYT'">
-            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub Icon">
-            GitHub
-        </button>
-        <button onclick="location.href='https://youtube.com/@ciberboyyt'">
-            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube Icon">
-            YouTube
-        </button>
-        <button onclick="location.href='https://discord.gg/ubTEfwHaU4'">
-            <img src="dc.png" alt="Discord Icon">
-            My Discord Server
-        </button>
-        <button onclick="location.href='games/index.html'">
-            <img src="game.png" alt="game icon">
-            Videogames
-        </button>
-        <button onclick="location.href='https://bytebeatciberboy.vercel.app/'">
-            <img src="music.png" alt ="music icon">
-            Bytebeat Player
-        </button>
+<body>
+    <canvas id="particles"></canvas>
+    <div class="container">
+        <h1>CiberBoy's Webpage</h1>
+        <h2>Hi! I'm CiberBoy, a Spanish YouTuber and coder.</h2>
+        <h2>I usually code in C#, C++, JS, HTML, and CSS.</h2>
+        <h2>I enjoy testing and coding malware.</h2>
+        <h2>I also make high-quality YT videos of Windows experiments and malware.</h2>
+        <h2>Here are some links to my socials, some tools I made and more info about me:</h2>
+        <div class="button-container">
+            <button class="btn" onclick="location.href='about.html'"><img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" alt="About"> About Me</button>
+            <button class="btn" onclick="location.href='https://github.com/CiberBoyYT'"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"> GitHub</button>
+            <button class="btn" onclick="location.href='https://youtube.com/@ciberboyyt'"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"> YouTube</button>
+            <button class="btn" onclick="location.href='https://discord.gg/ubTEfwHaU4'"><img src="dc.png" alt="Discord"> My Discord Server</button>
+            <button class="btn" onclick="location.href='games/index.html'"><img src="game.png" alt="Games"> Videogames</button>
+            <button class="btn" onclick="location.href='https://bytebeatciberboy.vercel.app/'"><img src="music.png" alt="Music"> Bytebeat Player</button>
+        </div>
     </div>
+    <script>
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.05;
+            }
+            draw() {
+                ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+                if (particle.size <= 0.2) particles.splice(index, 1);
+            });
+            while (particles.length < 100) {
+                particles.push(new Particle());
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
