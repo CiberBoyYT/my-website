@@ -3,90 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CiberBoy's website</title>
+    <title>CiberBoy's Website</title>
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background: url('bg.png');
-            background-size: cover;
-            font-family: Arial, Helvetica, sans-serif;
-            color: rgb(5, 5, 1);
+            background: radial-gradient(circle, #ff0080, #d500f9, #00b0ff);
+            animation: backgroundPulse 10s infinite alternate;
+            overflow: hidden;
+            color: #fff;
+        }
+        @keyframes backgroundPulse {
+            0% { background: radial-gradient(circle, #ff0080, #d500f9, #00b0ff); }
+            50% { background: radial-gradient(circle, #00b0ff, #ff0080, #d500f9); }
+            100% { background: radial-gradient(circle, #d500f9, #00b0ff, #ff0080); }
+        }
+        .container {
+            padding: 40px;
+            border-radius: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 50px 10px rgba(255, 255, 255, 0.3);
             text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: popIn 1.5s ease-out;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
         h1 {
-            font-size: 60px; 
-            margin-bottom: 40px;
-            color:red;
+            font-size: 60px;
+            color: #ffea00;
+            text-shadow: 0 0 15px #ffea00, 0 0 30px #ffea00, 0 0 60px #ffea00;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 15px #ffea00, 0 0 30px #ffea00; }
+            100% { text-shadow: 0 0 50px #ffea00, 0 0 100px #ffea00, 0 0 200px #ffea00; }
         }
         h2 {
-            font-size: 24px; 
-            margin:2px;
-            margin-bottom: 20px;
+            font-size: 18px;
+            margin-top:10px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
         .button-container {
             display: flex;
-            flex-direction: column;
-            gap: 20px; 
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
         }
-        button {
-            background-color: green;
+        .btn {
+            background: linear-gradient(45deg, #ff5e62, #ff9966);
             color: white;
-            font-size: 28px; 
-            padding: 15px 30px; 
+            font-size: 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0 5px 25px rgba(255, 94, 98, 0.7);
             display: flex;
             align-items: center;
-            gap: 15px; 
+            gap: 15px;
+            transform: scale(1);
         }
-        button img {
-            width: 32px; 
-            height: 32px;
+        .btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 15px 40px rgba(255, 94, 98, 0.9);
         }
-        button:hover {
-            background-color: darkgreen;
+        .btn img {
+            width: 28px;
+            height: 28px;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
     </style>
 </head>
-<body> 
-    <h1>CiberBoy's webpage</h1>
-    <h2>Hi! I'm CiberBoy, a Spanish YouTuber and coder.</h2>
-    <h2>I usually code in C#, C++, JS, HTML and CSS.</h2>
-    <h2>I enjoy testing and coding malware.</h2>
-    <h2>I also make high quality YT videos of windows experiments and malware.</h2>
-    <h2>I leave you here some links to my socials and info about me :)</h2>
-    <div class="button-container">
-        <button onclick="location.href='about.html'">
-            <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" alt="Help Icon">
-            About Me
-        </button>
-        <button onclick="location.href='https://github.com/CiberBoyYT'">
-            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub Icon">
-            GitHub
-        </button>
-        <button onclick="location.href='https://youtube.com/@ciberboyyt'">
-            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube Icon">
-            YouTube
-        </button>
-        <button onclick="location.href='https://discord.gg/ubTEfwHaU4'">
-            <img src="dc.png" alt="Discord Icon">
-            My Discord Server
-        </button>
-        <button onclick="location.href='games/index.html'">
-            <img src="game.png" alt="game icon">
-            Videogames
-        </button>
-        <button onclick="location.href='https://bytebeatciberboy.vercel.app/'">
-            <img src="music.png" alt ="music icon">
-            Bytebeat Player
-        </button>
+<body>
+    <canvas id="particles"></canvas>
+    <div class="container">
+        <h1>CiberBoy's Webpage</h1>
+        <h2>Hi! I'm CiberBoy, a Spanish YouTuber and coder.</h2>
+        <h2>I usually code in C#, C++, JS, HTML, and CSS.</h2>
+        <h2>I enjoy testing and coding malware.</h2>
+        <h2>I also make high-quality YT videos of Windows experiments and malware.</h2>
+        <h2>Here are some links to my socials, some tools I made, and more info about me:</h2>
+        <div class="button-container">
+            <button class="btn" onclick="location.href='about.html'"><img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" alt="About"> About Me</button>
+            <button class="btn" onclick="location.href='https://github.com/CiberBoyYT'"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"> GitHub</button>
+            <button class="btn" onclick="location.href='https://youtube.com/@ciberboyyt'"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"> YouTube</button>
+            <button class="btn" onclick="location.href='https://discord.gg/ubTEfwHaU4'"><img src="dc.png" alt="Discord"> My Discord Server</button>
+            <button class="btn" onclick="location.href='games/index.html'"><img src="game.png" alt="Games"> Videogames</button>
+            <button class="btn" onclick="location.href='https://bytebeatciberboy.vercel.app/'"><img src="music.png" alt="Music"> Bytebeat Player</button>
+            <button class="btn" onclick="location.href='calc.html'"><img src="calc.png" alt="calc"> Unit Conversion</button>
+        </div>
     </div>
+    <script>
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 6 + 2;
+                this.speedX = Math.random() * 4 - 2;
+                this.speedY = Math.random() * 4 - 2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.05;
+            }
+            draw() {
+                ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+                if (particle.size <= 0.2) particles.splice(index, 1);
+            });
+            while (particles.length < 200) {
+                particles.push(new Particle());
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
