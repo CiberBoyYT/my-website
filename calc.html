@@ -4,112 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CiberBoy Unit Converter</title>
+    <link rel="stylesheet" href="styles/converter.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            text-align: center;
-            color: white;
-            overflow: hidden;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 90%;
-            animation: fadeIn 1.5s ease-in-out;
-            position: relative;
-            z-index: 2;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        h1 {
-            font-size: 55px;
-            color: #ff4757;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(255, 71, 87, 0.8);
-        }
-        h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        label, select, input {
-            font-size: 18px;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-        }
-        input[type="number"], select {
-            width: 100%;
-            max-width: 300px;
-        }
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #ff4757, #ff6b81);
-            color: white;
-            font-size: 20px;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.5);
-        }
-        .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.7);
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <h1>CiberBoy Unit Converter</h1>
         <h2>Convert between different units</h2>
+
         <label for="quantity">Amount:</label>
         <input type="number" id="quantity" placeholder="Enter amount" />
-        
+
         <label for="unit">From Unit:</label>
         <select id="unit">
             <option value="m">Meters</option>
             <option value="km">Kilometers</option>
             <option value="cm">Centimeters</option>
             <option value="mm">Millimeters</option>
-            <option value="g">Grams</option>
-            <option value="kg">Kilograms</option>
-            <option value="mg">Milligrams</option>
-            <option value="l">Liters</option>
-            <option value="ml">Milliliters</option>
             <option value="mi">Miles</option>
             <option value="in">Inches</option>
             <option value="yd">Yards</option>
+            <option value="g">Grams</option>
+            <option value="kg">Kilograms</option>
+            <option value="mg">Milligrams</option>
             <option value="oz">Ounces</option>
             <option value="lb">Pounds</option>
+            <option value="l">Liters</option>
+            <option value="ml">Milliliters</option>
             <option value="s">Seconds</option>
             <option value="min">Minutes</option>
             <option value="h">Hours</option>
@@ -117,22 +38,23 @@
             <option value="f">Fahrenheit</option>
             <option value="k">Kelvin</option>
         </select>
+
         <label for="toUnit">To Unit:</label>
         <select id="toUnit">
             <option value="km">Kilometers</option>
             <option value="m">Meters</option>
             <option value="cm">Centimeters</option>
             <option value="mm">Millimeters</option>
-            <option value="kg">Kilograms</option>
-            <option value="g">Grams</option>
-            <option value="mg">Milligrams</option>
-            <option value="l">Liters</option>
-            <option value="ml">Milliliters</option>
             <option value="mi">Miles</option>
             <option value="in">Inches</option>
             <option value="yd">Yards</option>
+            <option value="kg">Kilograms</option>
+            <option value="g">Grams</option>
+            <option value="mg">Milligrams</option>
             <option value="oz">Ounces</option>
             <option value="lb">Pounds</option>
+            <option value="l">Liters</option>
+            <option value="ml">Milliliters</option>
             <option value="s">Seconds</option>
             <option value="min">Minutes</option>
             <option value="h">Hours</option>
@@ -140,59 +62,11 @@
             <option value="f">Fahrenheit</option>
             <option value="k">Kelvin</option>
         </select>
+
         <button class="btn" onclick="convert()">Convert</button>
         <h2 id="result"></h2>
     </div>
     <canvas></canvas>
-    <script>
-        function convert() { //this function converts and outputs the result
-            const quantity = parseFloat(document.getElementById("quantity").value);
-            const fromUnit = document.getElementById("unit").value;
-            const toUnit = document.getElementById("toUnit").value;
-            let result;
-            //length
-            if (fromUnit === "m" && toUnit === "km") result = quantity / 1000;
-            else if (fromUnit === "km" && toUnit === "m") result = quantity * 1000;
-            else if (fromUnit === "cm" && toUnit === "m") result = quantity / 100;
-            else if (fromUnit === "m" && toUnit === "cm") result = quantity * 100;
-            else if (fromUnit === "mm" && toUnit === "m") result = quantity / 1000;
-            else if (fromUnit === "m" && toUnit === "mm") result = quantity * 1000;
-            else if (fromUnit === "mi" && toUnit === "km") result = quantity * 1.60934;
-            else if (fromUnit === "km" && toUnit === "mi") result = quantity / 1.60934;
-            else if (fromUnit === "in" && toUnit === "m") result = quantity * 0.0254;
-            else if (fromUnit === "m" && toUnit === "in") result = quantity / 0.0254;
-            else if (fromUnit === "yd" && toUnit === "m") result = quantity * 0.9144;
-            else if (fromUnit === "m" && toUnit === "yd") result = quantity / 0.9144;
-            //weight
-            else if (fromUnit === "g" && toUnit === "kg") result = quantity / 1000;
-            else if (fromUnit === "kg" && toUnit === "g") result = quantity * 1000;
-            else if (fromUnit === "mg" && toUnit === "g") result = quantity / 1000;
-            else if (fromUnit === "g" && toUnit === "mg") result = quantity * 1000;
-            else if (fromUnit === "oz" && toUnit === "g") result = quantity * 28.3495;
-            else if (fromUnit === "g" && toUnit === "oz") result = quantity / 28.3495;
-            else if (fromUnit === "lb" && toUnit === "kg") result = quantity * 0.453592;
-            else if (fromUnit === "kg" && toUnit === "lb") result = quantity / 0.453592;
-            //time
-            else if (fromUnit === "s" && toUnit === "min") result = quantity / 60;
-            else if (fromUnit === "min" && toUnit === "s") result = quantity * 60;
-            else if (fromUnit === "h" && toUnit === "min") result = quantity * 60;
-            else if (fromUnit === "min" && toUnit === "h") result = quantity / 60;
-            else if (fromUnit === "h" && toUnit === "s") result = quantity * 3600;
-            else if (fromUnit === "s" && toUnit === "h") result = quantity / 3600;
-            //temp
-            else if (fromUnit === "c" && toUnit === "f") result = (quantity * 9/5) + 32;
-            else if (fromUnit === "f" && toUnit === "c") result = (quantity - 32) * 5/9;
-            else if (fromUnit === "c" && toUnit === "k") result = quantity + 273.15;
-            else if (fromUnit === "k" && toUnit === "c") result = quantity - 273.15;
-            else if (fromUnit === "f" && toUnit === "k") result = (quantity - 32) * 5/9 + 273.15;
-            else if (fromUnit === "k" && toUnit === "f") result = (quantity - 273.15) * 9/5 + 32;
-            if (result !== undefined) { //if result isnt undefined, show it
-                document.getElementById("result").innerText = `Result: ${result} ${toUnit}`;
-            } else {
-                document.getElementById("result").innerText = "The conversion is not valid :("; //show this if conversion isn't valid
-            }
-        }
-    </script>
+    <script src="scripts/convert.js"></script>
 </body>
 </html>
-
